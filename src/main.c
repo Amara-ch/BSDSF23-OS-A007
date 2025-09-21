@@ -1,13 +1,28 @@
 #include <stdio.h>
-#include "../include/hello.h"
+#include "../include/mystrfunctions.h"
+#include "../include/myfilefunctions.h"
 
 int main() {
-    printf("--- Testing Hello Function ---\n");
-    say_hello();  // Call the function from hello.c
+    printf("--- Testing String Functions ---\n");
 
-    // If you had more string/file functions, you would test them here
+    char str1[100], str2[100];
+    mystrcpy(str1, "Hello");
+    mystrcpy(str2, "World");
+    mystrcat(str1, " ");
+    mystrcat(str1, str2);
+    printf("Concatenated String: %s\n", str1);
+    printf("Length: %d\n", mystrlen(str1));
+
     printf("\n--- Testing File Functions ---\n");
-    // Add file function tests here
+    FILE* fp = fopen("sample.txt", "r");
+    if (fp) {
+        int lines, words, chars;
+        wordCount(fp, &lines, &words, &chars);
+        printf("Lines: %d, Words: %d, Chars: %d\n", lines, words, chars);
+        fclose(fp);
+    } else {
+        printf("File sample.txt not found!\n");
+    }
 
     return 0;
 }
